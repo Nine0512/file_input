@@ -19,10 +19,11 @@ let title = ref('')
 let author = ref('')
 let price = ref()
 let description = ref('')
-let fileReader = ref('')
+let fileReader
 let category = ref([])
 let previewImg = ref('')
 let categoryArr = ref(['Art', 'Design', 'Photography', 'Programming', 'Science', 'Technology'])
+let fileExtension = ['.png', '.jpg', '.jpeg', '.gif', '.svg']
 let warning = ref('')
 let id = route.params.id
 
@@ -35,34 +36,48 @@ if (props.method === 'update') {
   previewImg.value = props.item.imageBase64
 }
 const handleFileChange = (e) => {
-  file.value = e.target.files[0]
-  previewImg.value = URL.createObjectURL(e.target.files[0])
+  console.log(e.target.files[0].name)
+  if (fileExtension.some(item => e.target.files[0].name.endsWith(item))) {
+    warning.value = ''
+    file.value = e.target.files[0]
+    previewImg.value = URL.createObjectURL(e.target.files[0])
+  } else {
+    previewImg.value = ''
+    warning.value = 'Please upload file with extension .png, .jpg, .jpeg, .gif, .svg'
+  }
 }
 
 const handleSubmit = async () => {
-  fileReader.value = new FileReader()
-  fileReader.value.onload = (e) => {
-    fetch(' http://localhost:3004/image', {
-      method: 'post',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        imageBase64: e.target.result,
-        title: title.value,
-        author: author.value,
-        price: price.value,
-        date: new Date().toLocaleDateString(),
-        category: category.value,
-        description: description.value
-      }),
-    }).then(res => res.json()).then(() => location.reload())
+  if (title.value === '' || author.value === '' || price.value === '' || description.value === '' || category.value.length === 0 || file.value === null) {
+    warning.value = 'Please fill all the field'
+    return false
+  }else{
+    warning.value = ''
+    fileReader = new FileReader()
+    fileReader.onload = (e) => {
+      fetch(' http://localhost:3004/image', {
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          imageBase64: e.target.result,
+          title: title.value,
+          author: author.value,
+          price: price.value,
+          date: new Date().toLocaleDateString(),
+          category: category.value,
+          description: description.value
+        }),
+      }).then(res => res.json()).then(() => location.reload())
+    }
+    fileReader.readAsDataURL(file.value)
+    return true
   }
-  fileReader.value.readAsDataURL(file.value)
 }
 
 
 const handleUpdate = async (id) => {
-  fileReader.value = new FileReader()
-  fileReader.value.onload = (e) => {
+  fileReader = new FileReader()
+  fileReader.onload = (e) => {
     fetch(`http://localhost:3004/image/${id}`, {
       method: 'put',
       headers: {'Content-Type': 'application/json'},
@@ -81,7 +96,7 @@ const handleUpdate = async (id) => {
     })
 
   }
-  fileReader.value.readAsDataURL(file.value)
+  fileReader.readAsDataURL(file.value)
 }
 
 
@@ -149,9 +164,10 @@ let pushCategory = (item) => {
         </div>
       </div>
       <img :src="previewImg" alt="selected Image" v-if="previewImg" class="my-5">
+      <p class="text-red-500" v-if="warning">{{ warning }}</p>
       <input type="file" class="file-input w-full max-w-xs" @change="handleFileChange"/>
       <div class="modal-action">
-        <label v-if="method === 'insert'" for="my-modal" class="btn" @click="handleSubmit">Submit</label>
+        <label v-if="method === 'insert'" :for="handleSubmit?'':'my-modal'" class="btn" @click="handleSubmit">Submit</label>
         <label v-else-if="method === 'update'" for="my-modal" class="btn" @click="handleUpdate(id)">Update</label>
         <label for="my-modal" class="btn">Cancel</label>
       </div>
