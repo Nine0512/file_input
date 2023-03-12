@@ -3,6 +3,7 @@
 import {ref} from 'vue'
 import {useRoute} from 'vue-router'
 import InputModal from '../components/InputModal.vue'
+import book from '../book/Ore no Imouto ga Konna ni Kawaii Wake ga Nai Ayase IF.pdf'
 
 let pageImg = ref()
 const route = useRoute()
@@ -51,6 +52,9 @@ renderImg()
       <div class="col-span-6">
         <h1 class="text-2xl font-bold">Description : {{ pageImg?.title }}</h1>
         <p class="text-lg font-bold">{{ pageImg?.description }}</p>
+      </div>
+      <div class="col-span-6">
+        <a :href="book" class="btn" target="_blank">Download</a>
       </div>
       <div class="col-span-6 flex justify-end">
         <InputModal method="update" :id="pageImg?.id" :item="pageImg" />

@@ -28,12 +28,12 @@ let warning = ref('')
 let id = route.params.id
 
 if (props.method === 'update') {
-  title.value = props.item.title
-  author.value = props.item.author
-  price.value = props.item.price
-  description.value = props.item.description
-  category.value = props.item.category
-  previewImg.value = props.item.imageBase64
+  title.value = props.item?.title
+  author.value = props.item?.author
+  price.value = props.item?.price
+  description.value = props.item?.description
+  category.value = props.item?.category
+  previewImg.value = props.item?.imageBase64
 }
 const handleFileChange = (e) => {
   console.log(e.target.files[0].name)
@@ -158,7 +158,7 @@ let pushCategory = (item) => {
               <label class="label cursor-pointer px-5">
                 <span class="label-text">{{ item }}</span>
                 <input v-if="method === 'update'" type="checkbox" class="checkbox" @click="pushCategory(item)"
-                       :checked="props.item.category.some(m => m === item)"/>
+                       :checked="category.some(m => m === item)"/>
                 <input v-if="method === 'insert'" type="checkbox" class="checkbox" @click="pushCategory(item)"/>
               </label>
             </div>

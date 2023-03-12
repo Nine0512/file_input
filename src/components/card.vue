@@ -46,7 +46,7 @@ const props = defineProps({
             <div class="badge badge-outline">{{ item }}</div>
           </div>
         </div>
-        <button class="w-full rounded-xl bg-yellow-500 text-black mt-2">{{ price }} Bath</button>
+        <button class="w-full rounded-xl bg-yellow-500 text-black mt-2">{{ price }} Baht</button>
       </div>
     </router-link>
   </div>
