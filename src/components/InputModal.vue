@@ -101,7 +101,9 @@ const handleUpdate = async (id) => {
 
 
 let pushCategory = (item) => {
-  if (!category.value.includes(item)) {
+  if (category.value.some(e => e === item)) {
+    category.value = category.value.filter(e => e !== item)
+  }else {
     category.value.push(item)
   }
 }
