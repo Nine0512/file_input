@@ -1,21 +1,23 @@
 <script setup>
+import {ref} from 'vue'
 
-
-const props = defineProps({
-  title: {
-    type: String,
-    required: true
+let base64 = ref('')
+let file = ref(null)
+let previewFile = ref('')
+const handleFileChange = (e) => {
+  file.value = e.target.files[0]
+  const reader = new FileReader()
+  reader.onload = (e) => {
+    base64.value = e.target.result
+    console.log(base64.value)
+    previewFile.value = URL.createObjectURL(e.target.files[0])
   }
-})
-defineEmits(['update:title'])
-
+  reader.readAsDataURL(file.value)
+}
 </script>
 
 <template>
-  <div class="form-control w-full max-w-xs">
-    <label class="label">
-      <span class="label-text">{{ title }}</span>
-    </label>
-    <input type="text" :value="title" @input="$emit('update:title', $event.target.value)" placeholder="Type here" class="input input-bordered w-full max-w-xs"/>
-  </div>
+  <input type="file" class="file-input w-full max-w-xs" @change="handleFileChange"/>
+  <br>
+  <a :href="previewFile">here</a>
 </template>
