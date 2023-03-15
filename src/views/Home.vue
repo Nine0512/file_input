@@ -2,15 +2,10 @@
 import {ref} from 'vue'
 import Card from '../components/Card.vue'
 import InputModal from '../components/InputModal.vue'
-import Carousel from "@/components/Carousel.vue";
+import Carousel from "@/components/Carousel.vue"
+import { getImg } from '@/composable/fetch.js'
+
 let imgArr = ref([])
-
-
-const getImg = async () => {
-  const res = await fetch('http://localhost:3004/image')
-  const data = await res.json()
-  return data
-}
 
 const renderImg = async () => {
   const img = await getImg()
@@ -40,8 +35,7 @@ renderImg()
         <Carousel />
       </div>
       <div v-for="item in imgArr" :key="item.id">
-        <Card :id="item.id" :img="item.imageBase64" :title="item.title" :author="item.author" :category="item.category"
-              :price="item.price" :date="item.date"/>
+        <Card :item="item"/>
       </div>
       <div class="col-span-2 md:grid-cols-4 lg:col-span-6 flex justify-end">
         <InputModal />

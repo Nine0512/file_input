@@ -2,18 +2,11 @@
 import {ref} from "vue";
 import Navbar from "@/components/Navbar.vue";
 
-
-let inputSearch = ref('')
-
-const inputValue = (e) =>{
-  inputSearch.value = e.target.value
-}
-
 </script>
 
 <template>
   <div data-theme="garden">
-    <navbar @change="inputValue($event)" />
+    <navbar />
     <router-view></router-view>
   </div>
 

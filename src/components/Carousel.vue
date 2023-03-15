@@ -15,7 +15,7 @@ const banner4 = 'img/image4.png'
         <!--Slide 1-->
         <input class="carousel-open" type="radio" id="carousel-1" name="carousel" aria-hidden="true" hidden=""
                checked="checked">
-        <div class="carousel-item absolute opacity-0" style="height:70vh;">
+        <div class="carousel-item absolute opacity-0" style="height:50vh;">
           <div class="block h-full w-full">
             <img :src="banner1" alt="hello" class="w-full">
           </div>
@@ -27,7 +27,7 @@ const banner4 = 'img/image4.png'
 
         <!--Slide 2-->
         <input class="carousel-open" type="radio" id="carousel-2" name="carousel" aria-hidden="true" hidden="">
-        <div class="carousel-item absolute opacity-0" style="height:70vh;">
+        <div class="carousel-item absolute opacity-0" style="height:50vh;">
           <div class="block h-full w-full">
             <img :src="banner2" alt="hello" class="w-full">
           </div>
@@ -39,7 +39,7 @@ const banner4 = 'img/image4.png'
 
         <!--Slide 3-->
         <input class="carousel-open" type="radio" id="carousel-3" name="carousel" aria-hidden="true" hidden="">
-        <div class="carousel-item absolute opacity-0" style="height:70vh;">
+        <div class="carousel-item absolute opacity-0" style="height:50vh;">
           <div class="block h-full w-full">
             <img :src="banner3" alt="hello" class="w-full">
           </div>
@@ -51,7 +51,7 @@ const banner4 = 'img/image4.png'
                class="next control-3 w-10 h-10 mr-2 md:mr-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-blue-700 leading-tight text-center z-10 inset-y-0 right-0 my-auto">›</label>
         <!--Slide 4-->
         <input class="carousel-open" type="radio" id="carousel-4" name="carousel" aria-hidden="true" hidden="">
-        <div class="carousel-item absolute opacity-0" style="height:70vh;">
+        <div class="carousel-item absolute opacity-0" style="height:50vh;">
           <div class="block h-full w-full">
             <img :src="banner4" alt="hello" class="w-full">
           </div>

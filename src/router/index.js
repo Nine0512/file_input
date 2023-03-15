@@ -16,13 +16,7 @@ const router = createRouter({
         {
             path: '/all',
             name: 'all',
-            component: () => import('../views/AllBook.vue'),
-            children: [
-                {
-                    path: ':name',
-                    name: 'filterByName',
-                    component: () => import('../views/AllBook.vue')
-                }]
+            component: () => import('../views/AllBook.vue')
         }
     ]
 })
