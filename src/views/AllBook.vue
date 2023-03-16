@@ -30,7 +30,7 @@ renderImg()
 <template>
 
     <div class="w-full min-h-screen flex justify-center">
-      <div class="w-4/6 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 my-2">
+      <div class="w-full lg:w-4/6 grid grid-cols-2 mx-5 md:grid-cols-4 lg:grid-cols-6 gap-4 my-2">
         <div v-for="item in imgArr" :key="item.id">
           <Card :item="item"/>
         </div>
