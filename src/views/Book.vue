@@ -34,29 +34,27 @@ renderImg()
 
 <template>
   <div class="w-full min-h-screen flex justify-center text-black">
-    <div class="w-full m-5 lg:m-0 lg:w-4/6 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-6 gap-4 my-2 mt-10">
-      <div class="col-span-2 w-full">
+    <div class="w-full lg:w-4/6 lg:grid lg:grid-cols-6 gap-4 mx-5 my-2 mt-10">
+      <div class="w-full lg:col-span-2">
         <img :src="pageImg?.imageBase64" class="w-full object-cover">
       </div>
-      <div class="col-span-2">
+      <div class="lg:col-span-2 my-5">
         <h1 class="text-2xl font-bold">{{ pageImg?.title }}</h1>
         <p class="text-lg">Author : {{ pageImg?.author }}</p>
         <p class="text-lg">Category : {{ pageImg?.category.length > 1? pageImg?.category.join(','):pageImg?.category.join('')}}</p>
       </div>
-      <div class="col-span-2 justify-end flex">
-        <div>
+      <div class="lg:col-span-2 flex-col justify-end my-5">
           <p class="text-lg font-bold">Price : {{ pageImg?.price }}</p>
           <p class="text-lg font-bold">Date : {{ pageImg?.date }}</p>
-        </div>
       </div>
-      <div class="lg:col-span-2 xl:col-span-6">
+      <div class="col-span-2 lg:col-span-6">
         <h1 class="text-2xl font-bold">Description : {{ pageImg?.title }}</h1>
-        <p class="text-lg mt-4 text-justify">{{ pageImg?.description }}</p>
+        <p class="text-lg my-4 text-justify">&nbsp;&nbsp;&nbsp;&nbsp;{{ pageImg?.description }}</p>
       </div>
       <div class="col-span-6">
         <a :href="book" class="btn" target="_blank">Download</a>
       </div>
-      <div class="col-span-6 flex justify-end">
+      <div class="col-span-6 flex justify-end my-5">
         <InputModal method="update" :id="pageImg?.id" :item="pageImg" />
         <label for="my-modal-6" class="btn ml-2">Delete</label>
 
