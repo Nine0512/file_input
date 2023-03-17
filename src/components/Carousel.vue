@@ -1,8 +1,8 @@
 <script setup>
-const banner1 = 'img/image.png'
-const banner2 = 'img/image2.png'
-const banner3 = 'img/image3.png'
-const banner4 = 'img/image4.png'
+const banner1 = 'images/image.png'
+const banner2 = 'images/image2.png'
+const banner3 = 'images/image3.png'
+const banner4 = 'images/image4.png'
 
 </script>
 

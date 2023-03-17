@@ -34,7 +34,7 @@ renderImg()
 
 <template>
   <div class="w-full min-h-screen flex justify-center text-black">
-    <div class="w-4/6 grid grid-cols-6 gap-4 my-2 mt-10">
+    <div class="w-full m-5 lg:m-0 lg:w-4/6 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-6 gap-4 my-2 mt-10">
       <div class="col-span-2 w-full">
         <img :src="pageImg?.imageBase64" class="w-full object-cover">
       </div>
@@ -49,7 +49,7 @@ renderImg()
           <p class="text-lg font-bold">Date : {{ pageImg?.date }}</p>
         </div>
       </div>
-      <div class="col-span-6">
+      <div class="lg:col-span-2 xl:col-span-6">
         <h1 class="text-2xl font-bold">Description : {{ pageImg?.title }}</h1>
         <p class="text-lg mt-4 text-justify">{{ pageImg?.description }}</p>
       </div>

@@ -3,8 +3,8 @@ import {computed, onMounted, ref} from "vue";
 import {getImg} from "@/composable/fetch";
 import router from "@/router";
 
-const logo = 'img/Logo.png'
-const profile = 'img/image4.png'
+const logo = '/images/Logo.png'
+const profile = '/images/image4.png'
 
 let search = ref('')
 let infoArr = ref([])
