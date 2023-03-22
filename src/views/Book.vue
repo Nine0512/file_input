@@ -1,6 +1,6 @@
 <script setup>
 
-import {ref} from 'vue'
+import { ref, watch} from 'vue'
 import {useRoute} from 'vue-router'
 import InputModal from '../components/InputModal.vue'
 import book from '../book/Ore no Imouto ga Konna ni Kawaii Wake ga Nai Ayase IF.pdf'
@@ -8,6 +8,11 @@ import book from '../book/Ore no Imouto ga Konna ni Kawaii Wake ga Nai Ayase IF.
 let pageImg = ref()
 const route = useRoute()
 let id = route.params.id
+
+watch(() => route.params.id, () => {
+  id = route.params.id
+  renderImg()
+})
 
 const getImg = async () => {
   const res = await fetch(`http://localhost:3004/image/${id}`)
@@ -29,7 +34,6 @@ let deleteImg = async (id) => {
 }
 
 renderImg()
-
 </script>
 
 <template>
@@ -41,11 +45,12 @@ renderImg()
       <div class="lg:col-span-2 my-5">
         <h1 class="text-2xl font-bold">{{ pageImg?.title }}</h1>
         <p class="text-lg">Author : {{ pageImg?.author }}</p>
-        <p class="text-lg">Category : {{ pageImg?.category.length > 1? pageImg?.category.join(','):pageImg?.category.join('')}}</p>
+        <p class="text-lg">Category :
+          {{ pageImg?.category.length > 1 ? pageImg?.category.join(',') : pageImg?.category.join('') }}</p>
       </div>
       <div class="lg:col-span-2 flex-col justify-end my-5">
-          <p class="text-lg font-bold">Price : {{ pageImg?.price }}</p>
-          <p class="text-lg font-bold">Date : {{ pageImg?.date }}</p>
+        <p class="text-lg font-bold">Price : {{ pageImg?.price }}</p>
+        <p class="text-lg font-bold">Date : {{ pageImg?.date }}</p>
       </div>
       <div class="col-span-2 lg:col-span-6">
         <h1 class="text-2xl font-bold">Description : {{ pageImg?.title }}</h1>
@@ -55,10 +60,10 @@ renderImg()
         <a :href="book" class="btn" target="_blank">Download</a>
       </div>
       <div class="col-span-6 flex justify-end my-5">
-        <InputModal method="update" :id="pageImg?.id" :item="pageImg" />
+        <InputModal method="update" :id="pageImg?.id" :item="pageImg"/>
         <label for="my-modal-6" class="btn ml-2">Delete</label>
 
-        <input type="checkbox" id="my-modal-6" class="modal-toggle" />
+        <input type="checkbox" id="my-modal-6" class="modal-toggle"/>
         <div class="modal modal-bottom sm:modal-middle">
           <div class="modal-box">
             <h3 class="font-bold text-lg">Are you sure!</h3>

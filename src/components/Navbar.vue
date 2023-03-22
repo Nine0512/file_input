@@ -39,7 +39,10 @@ let searchChoice = computed(() => {
 let selectBook = (id) => {
   search.value = ''
   router.push({name: 'book', params: {id: id}})
+  // router.replace({name: 'book', params: {id: id}})
+  // location.reload()
 }
+
 
 
 </script>
