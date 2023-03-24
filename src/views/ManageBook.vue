@@ -80,7 +80,7 @@ const handleUpdate = async (id) => {
       body: JSON.stringify(bookObj.value),
     })
         .then(res => res.json()).then(() => {
-      location.reload()
+      router.push('/')
     })
   } else {
     fileReader.onload = (e) => {
@@ -91,7 +91,7 @@ const handleUpdate = async (id) => {
         body: JSON.stringify(bookObj.value),
       })
           .then(res => res.json()).then(() => {
-        location.reload()
+        router.push('/')
       })
     }
     fileReader.readAsDataURL(file.value)
