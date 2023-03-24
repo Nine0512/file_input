@@ -1,7 +1,6 @@
 <script setup>
 import {onMounted, ref} from 'vue'
 import Card from '../components/Card.vue'
-import InputModal from '../components/InputModal.vue'
 import Carousel from "@/components/Carousel.vue"
 import {getImg} from '@/composable/fetch.js'
 
@@ -17,7 +16,8 @@ const renderImg = async () => {
       author: item.author,
       price: item.price,
       date: item.date,
-      category: item.category
+      category: item.category,
+      description: item.description
     }
     imgArr.value.push(imgObj)
   })
@@ -39,7 +39,7 @@ onMounted((() => {
         <Card :item="item"/>
       </div>
       <div class="col-span-2 md:col-span-4 lg:col-span-6 flex justify-end">
-        <InputModal/>
+        <router-link to="/manage" class="btn">Add Book</router-link>
       </div>
     </div>
   </div>

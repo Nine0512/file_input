@@ -1,9 +1,9 @@
 <script setup>
 
-import { ref, watch} from 'vue'
+import {ref, watch} from 'vue'
 import {useRoute} from 'vue-router'
-import InputModal from '../components/InputModal.vue'
 import book from '../book/Ore no Imouto ga Konna ni Kawaii Wake ga Nai Ayase IF.pdf'
+import router from "@/router";
 
 let pageImg = ref()
 const route = useRoute()
@@ -28,12 +28,11 @@ const renderImg = async () => {
 let deleteImg = async (id) => {
   await fetch(`http://localhost:3004/image/${id}`, {
     method: 'delete',
-  }).then(() => {
-    imgArr.value = imgArr.value.filter(item => item.id !== id)
   })
 }
-
 renderImg()
+
+
 </script>
 
 <template>
@@ -60,9 +59,8 @@ renderImg()
         <a :href="book" class="btn" target="_blank">Download</a>
       </div>
       <div class="col-span-6 flex justify-end my-5">
-        <InputModal method="update" :id="pageImg?.id" :item="pageImg"/>
+        <router-link :to="'/manage/update/' + pageImg?.id" class="btn ml-2">Update</router-link>
         <label for="my-modal-6" class="btn ml-2">Delete</label>
-
         <input type="checkbox" id="my-modal-6" class="modal-toggle"/>
         <div class="modal modal-bottom sm:modal-middle">
           <div class="modal-box">

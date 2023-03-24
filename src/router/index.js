@@ -17,6 +17,18 @@ const router = createRouter({
             path: '/all',
             name: 'all',
             component: () => import('../views/AllBook.vue')
+        },
+        {
+            path: '/manage',
+            name: 'manage',
+            component: () => import('../views/ManageBook.vue'),
+            children: [
+                {
+                    path: 'update/:id',
+                    name: 'update',
+                    component: () => import('../views/ManageBook.vue')
+                }
+            ]
         }
     ]
 })
