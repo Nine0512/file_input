@@ -6,7 +6,6 @@ const getImg = async () => {
     }catch (err){
         console.log(err)
     }
-
 }
 
 const getImgById = async (id) => {

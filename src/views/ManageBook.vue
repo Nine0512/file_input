@@ -68,7 +68,7 @@ const handleSubmit = async () => {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(bookObj.value),
-      }).then(res => res.json()).then(() => router.go(-1))
+      }).then(() => router.go(-1))
     }
     fileReader.readAsDataURL(file.value)
     return true
@@ -78,16 +78,14 @@ const handleSubmit = async () => {
 
 const handleUpdate = async (id) => {
   fileReader = new FileReader()
-
+  bookObj.value.date = new Date().toLocaleDateString()
   if (!file.value) {
     fetch(`http://localhost:3004/image/${id}`, {
       method: 'put',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(bookObj.value),
     })
-        .then(res => res.json()).then(() => {
-      router.push('/')
-    })
+        .then(() => router.go(-1))
   } else {
     fileReader.onload = (e) => {
       bookObj.value.imageBase64 = e.target.result
@@ -96,9 +94,7 @@ const handleUpdate = async (id) => {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(bookObj.value),
       })
-          .then(res => res.json()).then(() => {
-        router.push('/')
-      })
+          .then(() => router.go(-1))
     }
     fileReader.readAsDataURL(file.value)
   }

@@ -3,7 +3,6 @@ import {onMounted, ref, watch} from 'vue'
 import {useRoute} from 'vue-router'
 import Card from '../components/Card.vue'
 import { getImg } from '@/composable/fetch.js'
-import router from "@/router";
 
 let imgArr = ref([])
 const route = useRoute()

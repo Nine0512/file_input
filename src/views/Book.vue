@@ -3,7 +3,13 @@
 import {ref, watch} from 'vue'
 import {useRoute} from 'vue-router'
 import book from '../book/Ore no Imouto ga Konna ni Kawaii Wake ga Nai Ayase IF.pdf'
-import {getImgById,deleteImg} from "@/composable/fetch";
+import {getImgById, deleteImg} from "@/composable/fetch";
+
+const bookIcon = '/icon/book.svg'
+const calendarIcon = '/icon/calendar.svg'
+const globeIcon = '/icon/globe.svg'
+const publisherIcon = '/icon/publisher.svg'
+
 
 let pageImg = ref()
 const route = useRoute()
@@ -26,22 +32,65 @@ renderImg()
 <template>
   <div class="w-full min-h-screen flex justify-center text-black">
     <div class="w-full lg:w-4/6 lg:grid lg:grid-cols-6 gap-4 mx-5 my-2 mt-10">
-      <div class="w-full lg:col-span-2">
-        <img :src="pageImg?.imageBase64" class="w-full object-cover">
+      <div class="col-span-6 grid grid-cols-6 gap-4">
+        <div class="col-span-2 w-full">
+          <img :src="pageImg?.imageBase64" class="w-full object-cover">
+        </div>
+        <div class="col-span-4 grid grid-cols-2 px-5">
+          <div class="my-5">
+            <h1 class="text-4xl font-bold mb-5">{{ pageImg?.title }}</h1>
+            <p class="text-lg">Author : {{ pageImg?.author }}</p>
+            <p class="text-lg">Category :
+              {{ pageImg?.category.length > 1 ? pageImg?.category.join(',') : pageImg?.category.join('') }}</p>
+            <p class="text-lg">Latest Update : {{ pageImg?.date }}</p>
+          </div>
+          <div class="flex-col justify-self-end h-full">
+            <div class="place-items-center grid h-full">
+              <p class="text-4xl text-orange-500 font-bold">{{ pageImg?.price }} Baht</p>
+              <button class="btn rounded-full w-full">Buy now</button>
+            </div>
+          </div>
+          <div class="col-span-2 w-full grid place-content-center mb-5">
+            <div class="flex w-5/6 justify-items-center w-full p-2 border-y border-neutral-400 border-solid">
+              <div class="flex flex-col px-10 place-items-center">
+                <p class="text-xs">Print Length</p>
+                <img :src="bookIcon" class="w-8 h-8 my-2">
+                <p class="text-xs">{{ pageImg?.printLength }} pages</p>
+              </div>
+              <div class="flex flex-col px-10 place-items-center">
+                <p class="text-xs">Language</p>
+                <img :src="globeIcon" class="w-8 h-8 my-2">
+                <p class="text-xs">{{ pageImg?.language }}</p>
+              </div>
+              <div class="flex flex-col px-10 place-items-center">
+                <p class="text-xs">Publisher</p>
+                <img :src="publisherIcon" class="w-8 h-8 my-2">
+                <p class="text-xs">{{ pageImg?.publisher }}</p>
+              </div>
+              <div class="flex flex-col px-10 place-items-center">
+                <p class="text-xs">Publication Date</p>
+                <img :src="calendarIcon" class="w-8 h-8 my-2">
+                <p class="text-xs">{{ pageImg?.publishedDate }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-span-2">
+            <h1 class="text-lg font-semibold">Promotion</h1>
+            <ul class="list-disc pl-5">
+              <li>Limited-time Discount: Offer a limited-time discount on the book, reducing the price by 25%.</li>
+              <li>Limited-time Discount: Offer a limited-time discount on the book, reducing the price by 25%.</li>
+              <li>Limited-time Discount: Offer a limited-time discount on the book, reducing the price by 25%.</li>
+              <li>Limited-time Discount: Offer a limited-time discount on the book, reducing the price by 25%.</li>
+            </ul>
+          </div>
+        </div>
+
       </div>
-      <div class="lg:col-span-2 my-5">
-        <h1 class="text-2xl font-bold">{{ pageImg?.title }}</h1>
-        <p class="text-lg">Author : {{ pageImg?.author }}</p>
-        <p class="text-lg">Category :
-          {{ pageImg?.category.length > 1 ? pageImg?.category.join(',') : pageImg?.category.join('') }}</p>
-      </div>
-      <div class="lg:col-span-2 flex-col justify-end my-5">
-        <p class="text-lg font-bold">Price : {{ pageImg?.price }}</p>
-        <p class="text-lg font-bold">Date : {{ pageImg?.date }}</p>
-      </div>
-      <div class="col-span-2 lg:col-span-6">
-        <h1 class="text-2xl font-bold">Description : {{ pageImg?.title }}</h1>
-        <p class="text-lg my-4 text-justify">&nbsp;&nbsp;&nbsp;&nbsp;{{ pageImg?.description }}</p>
+      <div class="col-span-6">
+        <div class="lg:col-span-6">
+          <h1 class="text-2xl font-bold">Description : {{ pageImg?.title }}</h1>
+          <p class="text-lg my-4 text-justify">&nbsp;&nbsp;&nbsp;&nbsp;{{ pageImg?.description }}</p>
+        </div>
       </div>
       <div class="col-span-6">
         <a :href="book" class="btn" target="_blank">Download</a>
