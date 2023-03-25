@@ -21,10 +21,6 @@ const getInfo = async () => {
   })
 }
 
-// const getLikeInfo = async () => {
-//   const res = await fetch('http://localhost:3004/image')
-// }
-
 onMounted(() => {
   getInfo()
 })
@@ -46,6 +42,11 @@ let selectBook = (id) => {
   router.push({name: 'book', params: {id: id}})
 }
 
+let selectSearch = (value) => {
+  search.value = ''
+  router.push({name: 'bookLike', params: {name: value}})
+}
+
 </script>
 
 <template>
@@ -62,7 +63,7 @@ let selectBook = (id) => {
       </div>
       <div class="col-span-2 grid grid-cols-4 lg:grid-cols-3 place-items-center">
         <div class="form-control col-span-2 lg:col-span-2">
-          <input type="text" placeholder="Search" class="input input-bordered w-11/12 h-8" v-model="search"/>
+          <input type="text" placeholder="Search" class="input input-bordered w-11/12 h-8" v-model="search" @keydown.enter="selectSearch(search)"/>
           <div v-if="searchChoice.length"
                class="absolute bg-base-100 p-4 rounded-xl lg:w-2/12 max-h-36 mt-10 overflow-y-scroll z-50">
             <ul v-for="item in searchChoice" :key="item.id">

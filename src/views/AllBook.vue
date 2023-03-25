@@ -1,12 +1,20 @@
 <script setup>
-import {ref} from 'vue'
+import {onMounted, ref, watch} from 'vue'
 import {useRoute} from 'vue-router'
 import Card from '../components/Card.vue'
 import { getImg } from '@/composable/fetch.js'
+import router from "@/router";
 
 let imgArr = ref([])
 const route = useRoute()
 let name = route.params.name
+
+
+const getLikeInfo = async () => {
+  const res = await fetch('http://localhost:3004/image?title_like=' + name)
+  const data = await res.json()
+  imgArr.value = data
+}
 
 const renderImg = async () => {
   const img = await getImg()
@@ -23,7 +31,19 @@ const renderImg = async () => {
     imgArr.value.push(imgObj)
   })
 }
-renderImg()
+
+watch(() => route.params.name, () => {
+  name = route.params.name
+  getLikeInfo()
+})
+
+onMounted(() => {
+  if (name === undefined) {
+    renderImg()
+  } else {
+    getLikeInfo()
+  }
+})
 
 </script>
 
