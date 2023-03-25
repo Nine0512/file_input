@@ -23,6 +23,10 @@ onMounted(async () => {
       title: "",
       author: "",
       price: "",
+      printLength: "",
+      language: "",
+      publisher: "",
+      publishedDate: "",
       date: new Date().toLocaleDateString(),
       description: "",
       category: [],
@@ -50,7 +54,9 @@ const handleFileChange = (e) => {
 }
 
 const handleSubmit = async () => {
-  if (bookObj.value?.title === '' || bookObj.value?.author === '' || bookObj.value?.price === '' || bookObj.value?.description === '' || bookObj.value?.category.length === 0 || file.value === null) {
+  if (bookObj.value?.title === '' || bookObj.value?.author === '' || bookObj.value?.price === '' || bookObj.value?.description === ''
+      || bookObj.value?.category.length === 0 || bookObj.value?.printLength === '' || bookObj.value?.language === ''
+      || bookObj.value?.publishedDate === '' || bookObj.value?.publisher === '' || file.value === null) {
     warning.value = 'Please fill all the field'
     return false
   } else {
@@ -62,7 +68,7 @@ const handleSubmit = async () => {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(bookObj.value),
-      }).then(res => res.json()).then(() => location.reload())
+      }).then(res => res.json()).then(() => router.go(-1))
     }
     fileReader.readAsDataURL(file.value)
     return true
@@ -115,49 +121,80 @@ let pushCategory = (item) => {
     <div class="w-full lg:w-4/6 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 pt-10">
       <div class="col-span-3">
         <h3 class="font-bold text-lg">Book info</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 place-items-center my-5">
-          <div class="">
-            <div class="form-control w-full max-w-xs">
-              <label class="label">
-                <span class="label-text">Title</span>
-              </label>
-              <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs"
-                     v-model="bookObj.title"/>
-            </div>
-            <div class="form-control w-full max-w-xs">
-              <label class="label">
-                <span class="label-text">Author</span>
-              </label>
-              <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs"
-                     v-model="bookObj.author"/>
-            </div>
-            <div class="form-control w-full max-w-xs">
-              <label class="label">
-                <span class="label-text">Price</span>
-              </label>
-              <input type="number" placeholder="Type here" class="input input-bordered w-full max-w-xs"
-                     v-model="bookObj.price"/>
-            </div>
-            <div class="form-control w-full max-w-xs">
-              <label class="label">
-                <span class="label-text">Description</span>
-              </label>
-              <textarea class="textarea textarea-bordered h-24" placeholder="Type here"
-                        v-model="bookObj.description"></textarea>
-            </div>
+        <div class="my-5">
+          <div class="form-control w-5/6 max-w-xs">
+            <label class="label">
+              <span class="label-text">Title</span>
+            </label>
+            <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs"
+                   v-model="bookObj.title"/>
+          </div>
+          <div class="form-control w-5/6 max-w-xs">
+            <label class="label">
+              <span class="label-text">Author</span>
+            </label>
+            <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs"
+                   v-model="bookObj.author"/>
+          </div>
+          <div class="form-control w-5/6 max-w-xs">
+            <label class="label">
+              <span class="label-text">Price</span>
+            </label>
+            <input type="number" placeholder="Type here" class="input input-bordered w-full max-w-xs"
+                   v-model="bookObj.price"/>
+          </div>
+          <div class="form-control w-5/6 max-w-xs">
+            <label class="label">
+              <span class="label-text">Print Length</span>
+            </label>
+            <input type="number" placeholder="Type here" class="input input-bordered w-full max-w-xs"
+                   v-model="bookObj.printLength"/>
+          </div>
+          <div class="form-control w-5/6 max-w-xs">
+            <label class="label">
+              <span class="label-text">Language</span>
+            </label>
+            <select class="select select-bordered w-full max-w-xs" v-model="bookObj.language">
+              <option disabled selected>What language of your book?</option>
+              <option>Thai</option>
+              <option>English</option>
+            </select>
+          </div>
+          <div class="form-control w-5/6 max-w-xs">
+            <label class="label">
+              <span class="label-text">Publisher</span>
+            </label>
+            <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs"
+                   v-model="bookObj.publisher"/>
+          </div>
+          <div class="form-control w-5/6 max-w-xs">
+            <label class="label">
+              <span class="label-text">Published Date</span>
+            </label>
+            <input type="date" placeholder="Type here" class="input input-bordered w-full max-w-xs"
+                   v-model="bookObj.publishedDate"/>
+          </div>
+          <div class="form-control w-5/6 max-w-xs">
+            <label class="label">
+              <span class="label-text">Description</span>
+            </label>
+            <textarea class="textarea textarea-bordered h-24" placeholder="Type here"
+                      v-model="bookObj.description"></textarea>
           </div>
           <div class="w-full">
             <label class="label">
               <span class="label-text">Category</span>
             </label>
-            <div v-for="item in categoryArr" :key="item" class="my-3">
-              <div class="form-control md:w-full">
-                <label class="label cursor-pointer px-5">
-                  <span class="label-text">{{ item }}</span>
-                  <input v-if="btn === 'Update'" type="checkbox" class="checkbox" @click="pushCategory(item)"
-                         :checked="bookObj?.category?.some(m => m === item)"/>
-                  <input v-if="btn === 'Add'" type="checkbox" class="checkbox" @click="pushCategory(item)"/>
-                </label>
+            <div class="grid grid-cols-2">
+              <div v-for="item in categoryArr" :key="item" class="my-3">
+                <div class="form-control md:w-full">
+                  <label class="label cursor-pointer px-5">
+                    <span class="label-text">{{ item }}</span>
+                    <input v-if="btn === 'Update'" type="checkbox" class="checkbox" @click="pushCategory(item)"
+                           :checked="bookObj?.category?.some(m => m === item)"/>
+                    <input v-if="btn === 'Add'" type="checkbox" class="checkbox" @click="pushCategory(item)"/>
+                  </label>
+                </div>
               </div>
             </div>
           </div>

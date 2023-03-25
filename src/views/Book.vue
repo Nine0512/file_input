@@ -3,7 +3,7 @@
 import {ref, watch} from 'vue'
 import {useRoute} from 'vue-router'
 import book from '../book/Ore no Imouto ga Konna ni Kawaii Wake ga Nai Ayase IF.pdf'
-import router from "@/router";
+import {getImgById,deleteImg} from "@/composable/fetch";
 
 let pageImg = ref()
 const route = useRoute()
@@ -14,24 +14,12 @@ watch(() => route.params.id, () => {
   renderImg()
 })
 
-const getImg = async () => {
-  const res = await fetch(`http://localhost:3004/image/${id}`)
-  const data = await res.json()
-  return data
-}
-
 const renderImg = async () => {
-  const img = await getImg()
+  const img = await getImgById(id)
   pageImg.value = img
 }
 
-let deleteImg = async (id) => {
-  await fetch(`http://localhost:3004/image/${id}`, {
-    method: 'delete',
-  })
-}
 renderImg()
-
 
 </script>
 

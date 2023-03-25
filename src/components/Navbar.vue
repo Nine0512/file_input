@@ -1,4 +1,5 @@
 <script setup>
+
 import {computed, onMounted, ref} from "vue";
 import {getImg} from "@/composable/fetch";
 import router from "@/router";
@@ -20,6 +21,10 @@ const getInfo = async () => {
   })
 }
 
+// const getLikeInfo = async () => {
+//   const res = await fetch('http://localhost:3004/image')
+// }
+
 onMounted(() => {
   getInfo()
 })
@@ -39,11 +44,7 @@ let searchChoice = computed(() => {
 let selectBook = (id) => {
   search.value = ''
   router.push({name: 'book', params: {id: id}})
-  // router.replace({name: 'book', params: {id: id}})
-  // location.reload()
 }
-
-
 
 </script>
 

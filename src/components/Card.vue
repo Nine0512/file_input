@@ -1,14 +1,11 @@
 <script setup>
 
-import InputModal from "@/views/ManageBook.vue";
-
 const props = defineProps({
   item: {
     type: Object,
     required: true
   }
 })
-
 
 </script>
 
